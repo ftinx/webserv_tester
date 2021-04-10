@@ -18,9 +18,10 @@ describe("Test two host", () => {
 	test("It should response the GET method", done => {
 		request("http://localhost:8080")
 			.get("/")
-			.set('Host', 'ftnix')
-			.set('Host', 'Ftnix')
-			.set('host', 'Ftnix')
+			.set({
+				'Host': 'ftnix',
+				'Host': 'ftnix'
+			})
 			.then(res => {
 				console.log(res.status);
 				console.log(res.headers);
