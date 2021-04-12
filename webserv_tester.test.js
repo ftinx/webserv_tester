@@ -157,7 +157,7 @@ describe("GET", () => {
         "Accept: */*\r\n" +
         "User-Agent: rawtester\r\n" +
         "Host: " + host + ":" + port + "\r\n" +
-        "Authorization: " + root_auth_type + ' fail'+ "\r\n";
+        "Authorization: " + root_auth_type + ' fail' + "\r\n" +
         "\r\n";
       const res = parseResponse(await rawtest(host, port, request));
       expect(res.protocolVersion).toBe('HTTP/1.1');
