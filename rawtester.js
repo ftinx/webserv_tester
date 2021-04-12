@@ -1,11 +1,9 @@
+const fs = require('fs');
 const { Socket } = require("net");
 const { PromiseSocket } = require("promise-socket");
 
 function parseResponse(res) {
   var response = {}
-  // let headers = new Map();
-  // let body = "";
-
   lines = res.split(/\r?\n/);
 
   /* parse status line */
@@ -38,7 +36,7 @@ function parseResponse(res) {
       'statusMessage': parseLine[3]
     })
   }
-
+  
   function parseHeaders(headerLines) {
     let headers = {};
     for (line of headerLines) {
@@ -50,17 +48,24 @@ function parseResponse(res) {
 }
 
 async function rawtest(host, port, request) {
-    const client = new Socket();
-    const promiseSocket = new PromiseSocket(client)
+  const client = new Socket();
+  const promiseSocket = new PromiseSocket(client)
 
-    await promiseSocket.connect(port, host);
-    await promiseSocket.write(request);
-    promiseSocket.end();
-    const response = await promiseSocket.readAll();
-    promiseSocket.destroy()
-    // console.log(response.toString());
-    return (response.toString());
-  }
-  
+  await promiseSocket.connect(port, host);
+  await promiseSocket.write(request);
+  promiseSocket.end();
+  const response = await promiseSocket.readAll();
+  promiseSocket.destroy()
+  return (response.toString());
+}
+ 
+function writeLog(filename, log) {
+  fs.writeFile(filename, log, 'utf8', function (err, fd) { 
+    if (err) 
+      throw '[ERR] FILE WRITE: ' + fd + ' ' + err;
+  });
+}
+
 module.exports.rawtest = rawtest;
+module.exports.writeLog = writeLog;
 module.exports.parseResponse = parseResponse;
