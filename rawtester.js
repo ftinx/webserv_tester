@@ -41,7 +41,7 @@ function parseResponse(res) {
     let headers = {};
     for (line of headerLines) {
       parseHeaders = line.split(':');
-      headers[parseHeaders.shift()] = parseHeaders.join(':').trim();
+      headers[parseHeaders.shift().toLowerCase()] = parseHeaders.join(':').trim();
     }
     return (headers);
   }

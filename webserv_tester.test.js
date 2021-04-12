@@ -107,7 +107,7 @@ describe("GET", () => {
     writeLog("Accept_Language_ko.html", res.body);
     expect(res.protocolVersion).toBe('HTTP/1.1');
     expect(res.statusCode).toBe(200);
-    expect(res.headers['Content-Language']).toBe("ko");
+    expect(res.headers['content-language']).toBe("ko");
     done();
   });
   test("GET Accept-Language: en", async (done) => {
@@ -123,7 +123,7 @@ describe("GET", () => {
     writeLog("Accept_Language_en.html", res.body);
     expect(res.protocolVersion).toBe('HTTP/1.1');
     expect(res.statusCode).toBe(200);
-    expect(res.headers['Content-Language']).toBe("en");
+    expect(res.headers['content-language']).toBe("en");
     done();
   });
   if (root_auth_scheme) {
@@ -166,4 +166,30 @@ describe("GET", () => {
       done();
     });
   }
+});
+
+describe("POST", () => {
+  test("POST CGI", async (done) => {
+    const request =
+      "POST /directory/YoupiBanane/aa.bla HTTP/1.1\r\n" +
+      "Accept: */*\r\n" +
+      "User-Agent: rawtester\r\n" +
+      "Host: " + host + ":" + port + "\r\n" +
+      "Content-Length: 7\r\n" +
+      "\r\n" + 
+      "abcdefg";
+    const res = parseResponse(await rawtest(host, port, request));
+    expect(res.protocolVersion).toBe('HTTP/1.1');
+    expect(res.statusCode).toBe(200);
+    if (res.headers['transfer-encoding'] == 'chunked')
+    {
+      expect(res.body).toBe('7\r\nABCDEFG\r\n0\r\n\r\n');
+    }
+    else 
+    {
+      expect(res.headers['content-length']).toBe('7');
+      expect(res.body).toBe('ABCDEFG');
+    }
+    done();
+  });
 });
