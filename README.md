@@ -1,5 +1,6 @@
 ### 사용법
 
 ```sh
-node tester.js
+npm i
+npm test
 ```
