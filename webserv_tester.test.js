@@ -21,6 +21,7 @@ describe("GET", () => {
       authHeader +
       "\r\n";
     const res = parseResponse(await rawtest(host, port, request));
+    writeLog("response_message.json", JSON.stringify(res));
     expect(res.protocolVersion).toBe('HTTP/1.1');
     expect(res.statusCode).toBe(200);
     done();
