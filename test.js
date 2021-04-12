@@ -23,9 +23,9 @@ describe("Test the root path", () => {
       "Host: " + host + ":" + port + "\r\n" +
       "\r\n";
 
-    const res = await rawtest(host, port, request);
-    parseResponse(res);
-    expect(res).toBe(200);
+    const res = parseResponse(await rawtest(host, port, request));
+    expect(res.protocolVersion).toBe('HTTP/1.1');
+    expect(res.statusCode).toBe(200);
     done();
   });
 });

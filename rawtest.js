@@ -1,27 +1,6 @@
 const { Socket } = require("net");
 const { PromiseSocket } = require("promise-socket");
 
-var a = `HTTP/1.1 404 Not found
-Date: Mon, 12 Apr 2021 16:10:12 GMT
-Server: gbp_nginx/0.4
-Connection: close
-Content-Length: 164
-Content-Language: 
-Content-Type: text/html
-
-<html>
-    <head>
-            <title>404 Not found</title>
-    </head>
-    <body>
-            <center>
-                    <h1>404 Not found</h1>
-            </center>
-            <hr>
-    <center> ft_nginx </center>
-    </body>
-</html>`
-
 function parseResponse(res) {
   var response = {}
   // let headers = new Map();
@@ -55,7 +34,7 @@ function parseResponse(res) {
     parseLine = statusLine.match(/^(.+) ([0-9]{3}) (.*)$/);
     return ({
       'protocolVersion': parseLine[1],
-      'statusCode': parseLine[2],
+      'statusCode': parseInt(parseLine[2]),
       'statusMessage': parseLine[3]
     })
   }
