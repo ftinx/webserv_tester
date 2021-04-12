@@ -2,16 +2,23 @@ const { rawtest, writeLog, parseResponse } = require("./rawtester.js");
 
 const port = 8080;
 const host = "localhost";
-
+const root_auth_type = "Basic";
+const root_auth_scheme = "";
 // jest.setTimeout(5000);
 
 describe("GET", () => {
+  let authHeader = ''
+  if (root_auth_scheme) {
+    authHeader = "Authorization: " + root_auth_type + ' ' + root_auth_scheme + "\r\n";
+  }
+
   test("GET /", async (done) => {
     const request =
       "GET / HTTP/1.1\r\n" +
       "Accept: */*\r\n" +
       "User-Agent: rawtester\r\n" +
       "Host: " + host + ":" + port + "\r\n" +
+      authHeader +
       "\r\n";
     const res = parseResponse(await rawtest(host, port, request));
     expect(res.protocolVersion).toBe('HTTP/1.1');
@@ -23,6 +30,7 @@ describe("GET", () => {
       "GET / HTTP/1.1\r\n" +
       "Accept: */*\r\n" +
       "User-Agent: rawtester\r\n" +
+      authHeader +
       "\r\n";
     const res = parseResponse(await rawtest(host, port, request));
     expect(res.protocolVersion).toBe('HTTP/1.1');
@@ -36,6 +44,7 @@ describe("GET", () => {
       "User-Agent: rawtester\r\n" +
       "Host: " + host + ":" + port + "\r\n" +
       "Host: rawtester" + "\r\n" +
+      authHeader +
       "\r\n";
     const res = parseResponse(await rawtest(host, port, request));
     expect(res.protocolVersion).toBe('HTTP/1.1');
@@ -49,6 +58,7 @@ describe("GET", () => {
       "User-Agent: rawtester\r\n" +
       "Host: " + host + ":" + port + "\r\n" +
       "HOST: rawtester" + "\r\n" +
+      authHeader +
       "\r\n";
     const res = parseResponse(await rawtest(host, port, request));
     expect(res.protocolVersion).toBe('HTTP/1.1');
@@ -62,6 +72,7 @@ describe("GET", () => {
       "User-Agent: rawtester\r\n" +
       "Host: " + host + ":" + port + "\r\n" +
       "host: rawtester" + "\r\n" +
+      authHeader +
       "\r\n";
     const res = parseResponse(await rawtest(host, port, request));
     expect(res.protocolVersion).toBe('HTTP/1.1');
@@ -75,6 +86,7 @@ describe("GET", () => {
       "User-Agent: rawtester\r\n" +
       "HOST: " + host + ":" + port + "\r\n" +
       "host: rawtester" + "\r\n" +
+      authHeader +
       "\r\n";
     const res = parseResponse(await rawtest(host, port, request));
     expect(res.protocolVersion).toBe('HTTP/1.1');
@@ -88,6 +100,7 @@ describe("GET", () => {
       "User-Agent: rawtester\r\n" +
       "Host: " + host + ":" + port + "\r\n" +
       "Accept-Language: ko" + "\r\n" +
+      authHeader +
       "\r\n";
     const res = parseResponse(await rawtest(host, port, request));
     writeLog("Accept_Language_ko.html", res.body);
@@ -103,6 +116,7 @@ describe("GET", () => {
       "User-Agent: rawtester\r\n" +
       "Host: " + host + ":" + port + "\r\n" +
       "Accept-Language: en" + "\r\n" +
+      authHeader +
       "\r\n";
     const res = parseResponse(await rawtest(host, port, request));
     writeLog("Accept_Language_en.html", res.body);
@@ -111,4 +125,44 @@ describe("GET", () => {
     expect(res.headers['Content-Language']).toBe("en");
     done();
   });
+  if (root_auth_scheme) {
+    test("GET Authorization", async (done) => {
+      const request =
+        "GET / HTTP/1.1\r\n" +
+        "Accept: */*\r\n" +
+        "User-Agent: rawtester\r\n" +
+        "Host: " + host + ":" + port + "\r\n" +
+        authHeader +
+        "\r\n";
+      const res = parseResponse(await rawtest(host, port, request));
+      expect(res.protocolVersion).toBe('HTTP/1.1');
+      expect(res.statusCode).toBe(200);
+      done();
+    });
+    test("GET Authorization (1)", async (done) => {
+      const request =
+        "GET / HTTP/1.1\r\n" +
+        "Accept: */*\r\n" +
+        "User-Agent: rawtester\r\n" +
+        "Host: " + host + ":" + port + "\r\n" +
+        "\r\n";
+      const res = parseResponse(await rawtest(host, port, request));
+      expect(res.protocolVersion).toBe('HTTP/1.1');
+      expect(res.statusCode).toBe(401);
+      done();
+    });
+    test("GET Authorization", async (done) => {
+      const request =
+        "GET / HTTP/1.1\r\n" +
+        "Accept: */*\r\n" +
+        "User-Agent: rawtester\r\n" +
+        "Host: " + host + ":" + port + "\r\n" +
+        "Authorization: " + root_auth_type + ' fail'+ "\r\n";
+        "\r\n";
+      const res = parseResponse(await rawtest(host, port, request));
+      expect(res.protocolVersion).toBe('HTTP/1.1');
+      expect(res.statusCode).toBe(403);
+      done();
+    });
+  }
 });
