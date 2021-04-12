@@ -2,7 +2,7 @@
   "name": "webserv_tester",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "webserv_tester.test.js",
   "scripts": {
     "test": "./node_modules/jest/bin/jest.js"
   },
