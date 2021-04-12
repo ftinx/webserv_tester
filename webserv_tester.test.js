@@ -81,31 +81,31 @@ describe("GET", () => {
     expect(res.statusCode).toBe(400);
     done();
   });
-  test("GET Accpet-Language: ko", async (done) => {
+  test("GET Accept-Language: ko", async (done) => {
     const request =
       "GET / HTTP/1.1\r\n" +
       "Accept: */*\r\n" +
       "User-Agent: rawtester\r\n" +
       "Host: " + host + ":" + port + "\r\n" +
-      "Accpet-Language: ko" + "\r\n" +
+      "Accept-Language: ko" + "\r\n" +
       "\r\n";
     const res = parseResponse(await rawtest(host, port, request));
-    writeLog("Accpet_Language_ko.html", res.body);
+    writeLog("Accept_Language_ko.html", res.body);
     expect(res.protocolVersion).toBe('HTTP/1.1');
     expect(res.statusCode).toBe(200);
     expect(res.headers['Content-Language']).toBe("ko");
     done();
   });
-  test("GET Accpet-Language: en", async (done) => {
+  test("GET Accept-Language: en", async (done) => {
     const request =
       "GET / HTTP/1.1\r\n" +
       "Accept: */*\r\n" +
       "User-Agent: rawtester\r\n" +
       "Host: " + host + ":" + port + "\r\n" +
-      "Accpet-Language: en" + "\r\n" +
+      "Accept-Language: en" + "\r\n" +
       "\r\n";
     const res = parseResponse(await rawtest(host, port, request));
-    writeLog("Accpet_Language_en.html", res.body);
+    writeLog("Accept_Language_en.html", res.body);
     expect(res.protocolVersion).toBe('HTTP/1.1');
     expect(res.statusCode).toBe(200);
     expect(res.headers['Content-Language']).toBe("en");
