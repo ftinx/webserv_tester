@@ -1,4 +1,4 @@
-const rawtest = require("./rawtest.js");
+const { rawtest, parseResponse } = require("./rawtest.js");
 
 const port = 8080;
 const host = "localhost";
@@ -20,12 +20,11 @@ describe("Test the root path", () => {
       "GET / HTTP/1.1\r\n" +
       "Accept: */*\r\n" +
       "User-Agent: my-test-agent\r\n" +
-      "Host: localhost:" +
-      port +
-      "\r\n" +
+      "Host: " + host + ":" + port + "\r\n" +
       "\r\n";
 
     const res = await rawtest(host, port, request);
+    parseResponse(res);
     expect(res).toBe(200);
     done();
   });
