@@ -2,7 +2,7 @@ const fs = require('fs');
 const { Socket } = require("net");
 const { PromiseSocket } = require("promise-socket");
 
-// let MESSAGE_LOG_STATUS = 1;
+let MESSAGE_LOG_STATUS = 1;
 
 function parseResponse(res) {
   var response = {}
@@ -71,17 +71,18 @@ function writeLog(filename, log) {
 }
 
 function messageLog(log) {
-  // if (MESSAGE_LOG_STATUS) {
-  //   fs.writeFile(filename, log, 'utf8', function (err, fd) { 
-  //     if (err) 
-  //       throw '[ERR] FILE WRITE: ' + fd + ' ' + err;
-  //   });   
-  //   MESSAGE_LOG_STATUS -= 1;
-  // }
-  fs.appendFile("http_response.log", log, (err) => {
-    if (err) 
-      throw '[ERR] FILE WRITE: response message ' + err;
-  });
+  if (MESSAGE_LOG_STATUS) {
+    fs.writeFile("http_response.log", log, 'utf8', function (err, fd) { 
+      if (err) 
+        throw '[ERR] FILE WRITE: ' + fd + ' ' + err;
+    });   
+    MESSAGE_LOG_STATUS -= 1;
+  } else {
+    fs.appendFile("http_response.log", log, (err) => {
+      if (err) 
+        throw '[ERR] FILE WRITE: response message ' + err;
+    });
+  }
 }
 
 module.exports.rawtest = rawtest;
