@@ -55,6 +55,7 @@ async function rawtest(host, port, request) {
   await promiseSocket.write(request);
   promiseSocket.end();
   const response = await promiseSocket.readAll();
+  messageLog(response);
   promiseSocket.destroy()
   return (response.toString());
 }
@@ -66,6 +67,14 @@ function writeLog(filename, log) {
   });
 }
 
+function messageLog(log) {
+  fs.appendFile("http_response.log", log, (err) => {
+    if (err) 
+      throw '[ERR] FILE WRITE: response message ' + err;
+  });
+}
+
 module.exports.rawtest = rawtest;
 module.exports.writeLog = writeLog;
+// module.exports.messageLog = messageLog;
 module.exports.parseResponse = parseResponse;

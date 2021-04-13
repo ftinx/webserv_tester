@@ -14,5 +14,19 @@ npm test
 - response_message.json
   - GET / 에 대한 파싱 정보 확인 가능 (VSCODE Prettier 설치 후 Format Document로 정제 권장)
 
+## Clean Files
+
+#### http_response.log 빼고 clean
+
+```sh
+npm run --silent clean
+```
+
+#### 모든 Files clean
+
+```sh
+npm run --silent fclean
+```
+
 ## To Do
 - Chunked 처리 (현재는 content-length만 처리됨)

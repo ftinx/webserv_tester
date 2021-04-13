@@ -4,7 +4,9 @@
   "description": "",
   "main": "webserv_tester.test.js",
   "scripts": {
-    "test": "./node_modules/jest/bin/jest.js"
+    "test": "./node_modules/jest/bin/jest.js",
+    "clean": "rm response_message.json response_message_multiple_port.json Accept_Language_en.html Accept_Language_ko.html",
+    "fclean": "rm response_message.json response_message_multiple_port.json Accept_Language_en.html Accept_Language_ko.html http_response.log"
   },
   "repository": {
     "type": "git",

@@ -369,13 +369,32 @@ describe("OPTIONS", () => {
   }); 
 });
 
+describe("PUT", () => {
+  test("/put_test", async (done) => {
+    const request =
+      "PUT /new.html HTTP/1.1\r\n" +
+      "Accept: */*\r\n" +
+      "User-Agent: rawtester\r\n" +
+      "Host: " + host + ":" + port + "\r\n" +
+      "Content-Length: 16\r\n" +
+      "Content-type: text/html\r\n" +
+      "\r\n" +
+      "<p>New File</p>";
+    const res = parseResponse(await rawtest(host, port, request));
+    expect(res.protocolVersion).toBe('HTTP/1.1');
+    expect(res.statusCode).toBe(201);
+    expect(res.headers['Content-Location']).tobe("/new.html");
+    done();
+  }); 
+});
+
 describe("MULTIPLE PORT", () => {
   test("GET /", async (done) => {
     const request =
       "GET / HTTP/1.1\r\n" +
       "Accept: */*\r\n" +
       "User-Agent: rawtester\r\n" +
-      "Host: " + host + ":" + port + "\r\n" +
+      "Host: " + host + ":" + multiple_port + "\r\n" +
       "\r\n";
     const res = parseResponse(await rawtest(host, multiple_port, request));
     writeLog("response_message_multiple_port.json", JSON.stringify(res));
@@ -388,7 +407,7 @@ describe("MULTIPLE PORT", () => {
       "OPTIONS / HTTP/1.1\r\n" +
       "Accept: */*\r\n" +
       "User-Agent: rawtester\r\n" +
-      "Host: " + host + ":" + port + "\r\n" +
+      "Host: " + host + ":" + multiple_port + "\r\n" +
       "\r\n";
     const res = parseResponse(await rawtest(host, multiple_port, request));
     expect(res.protocolVersion).toBe('HTTP/1.1');
