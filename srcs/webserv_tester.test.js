@@ -4,6 +4,8 @@ const port = 8080;
 const host = "localhost";
 const root_auth_type = "Basic";
 const root_auth_scheme = "";
+
+const trace_path = "/";
 // jest.setTimeout(5000);
 
 describe("GET", () => {
@@ -332,5 +334,36 @@ describe("POST", () => {
 });
 
 describe("TRACE", () => {
-  
+  test("trace loop-back", async (done) => {
+    const request =
+      "TRACE " + trace_path + " HTTP/1.1\r\n" +
+      "Accept: */*\r\n" +
+      "User-Agent: rawtester\r\n" +
+      "Host: " + host + ":" + port + "\r\n" +
+      "\r\n";
+    const res = parseResponse(await rawtest(host, port, request));
+    expect(res.protocolVersion).toBe('HTTP/1.1');
+    expect(res.statusCode).toBe(200);
+    expect(res.headers['content-type']).toBe('message/http');
+    expect(res.body).toBe(request);
+    done();
+  }); 
+});
+
+describe("OPTIONS", () => {
+  test("options", async (done) => {
+    const request =
+      "OPTIONS / HTTP/1.1\r\n" +
+      "Accept: */*\r\n" +
+      "User-Agent: rawtester\r\n" +
+      "Host: " + host + ":" + port + "\r\n" +
+      "\r\n";
+    const res = parseResponse(await rawtest(host, port, request));
+    expect(res.protocolVersion).toBe('HTTP/1.1');
+    expect(res.statusCode).toBe(200);
+    expect(res.headers['allow']).not.toBeUndefined();
+    if (!res.headers['transfer-encoding'])
+      expect(res.headers['content-length']).not.toBeUndefined();
+    done();
+  }); 
 });
