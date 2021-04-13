@@ -23,7 +23,12 @@ describe("GET", () => {
       "Host: " + host + ":" + port + "\r\n" +
       authHeader +
       "\r\n";
-    const res = parseResponse(await rawtest(host, port, request));
+    let res;
+    try {
+      res = parseResponse(await rawtest(host, port, request));
+    } catch (err) {
+      res = {};
+    }
     writeLog("response_message.json", JSON.stringify(res));
     expect(res.protocolVersion).toBe('HTTP/1.1');
     expect(res.statusCode).toBe(200);
@@ -37,7 +42,12 @@ describe("GET", () => {
       "Host: " + host + ":" + port + "\r\n" +
       authHeader +
       "\r\n";
-    const res = parseResponse(await rawtest(host, port, request));
+    let res;
+    try {
+      res = parseResponse(await rawtest(host, port, request));
+    } catch (err) {
+      res = {};
+    }
     writeLog("response_message.json", JSON.stringify(res));
     expect(res.protocolVersion).toBe('HTTP/1.1');
     expect(res.statusCode).toBe(405);
@@ -51,7 +61,12 @@ describe("GET", () => {
       "Host: " + host + ":" + port + "\r\n" +
       authHeader +
       "\r\n";
-    const res = parseResponse(await rawtest(host, port, request));
+    let res;
+    try {
+      res = parseResponse(await rawtest(host, port, request));
+    } catch (err) {
+      res = {};
+    }
     writeLog("response_message.json", JSON.stringify(res));
     expect(res.protocolVersion).toBe('HTTP/1.1');
     expect(res.statusCode).toBe(405);
@@ -65,7 +80,12 @@ describe("GET", () => {
       "Host: " + host + ":" + port + "\r\n" +
       authHeader +
       "\r\n";
-    const res = parseResponse(await rawtest(host, port, request));
+    let res;
+    try {
+      res = parseResponse(await rawtest(host, port, request));
+    } catch (err) {
+      res = {};
+    }
     writeLog("response_message.json", JSON.stringify(res));
     expect(res.protocolVersion).toBe('HTTP/1.1');
     expect(res.statusCode).toBe(404);
@@ -79,7 +99,12 @@ describe("GET", () => {
       "Host: " + host + ":" + port + "\r\n" +
       authHeader +
       "\r\n";
-    const res = parseResponse(await rawtest(host, port, request));
+    let res;
+    try {
+      res = parseResponse(await rawtest(host, port, request));
+    } catch (err) {
+      res = {};
+    }
     writeLog("response_message.json", JSON.stringify(res));
     expect(res.protocolVersion).toBe('HTTP/1.1');
     expect(res.statusCode).toBe(404);
@@ -93,7 +118,12 @@ describe("GET", () => {
       "Host: " + host + ":" + port + "\r\n" +
       authHeader +
       "\r\n";
-    const res = parseResponse(await rawtest(host, port, request));
+    let res;
+    try {
+      res = parseResponse(await rawtest(host, port, request));
+    } catch (err) {
+      res = {};
+    }
     writeLog("response_message.json", JSON.stringify(res));
     expect(res.protocolVersion).toBe('HTTP/1.1');
     expect(res.statusCode).toBe(404);
@@ -120,7 +150,12 @@ describe("GET", () => {
       "User-Agent: rawtester\r\n" +
       authHeader +
       "\r\n";
-    const res = parseResponse(await rawtest(host, port, request));
+    let res;
+    try {
+      res = parseResponse(await rawtest(host, port, request));
+    } catch (err) {
+      res = {};
+    }
     expect(res.protocolVersion).toBe('HTTP/1.1');
     expect(res.statusCode).toBe(400);
     done();
@@ -134,7 +169,12 @@ describe("GET", () => {
       "Host: rawtester" + "\r\n" +
       authHeader +
       "\r\n";
-    const res = parseResponse(await rawtest(host, port, request));
+    let res;
+    try {
+      res = parseResponse(await rawtest(host, port, request));
+    } catch (err) {
+      res = {};
+    }
     expect(res.protocolVersion).toBe('HTTP/1.1');
     expect(res.statusCode).toBe(400);
     done();
@@ -148,7 +188,12 @@ describe("GET", () => {
       "HOST: rawtester" + "\r\n" +
       authHeader +
       "\r\n";
-    const res = parseResponse(await rawtest(host, port, request));
+    let res;
+    try {
+      res = parseResponse(await rawtest(host, port, request));
+    } catch (err) {
+      res = {};
+    }
     expect(res.protocolVersion).toBe('HTTP/1.1');
     expect(res.statusCode).toBe(400);
     done();
@@ -162,7 +207,12 @@ describe("GET", () => {
       "host: rawtester" + "\r\n" +
       authHeader +
       "\r\n";
-    const res = parseResponse(await rawtest(host, port, request));
+    let res;
+    try {
+      res = parseResponse(await rawtest(host, port, request));
+    } catch (err) {
+      res = {};
+    }
     expect(res.protocolVersion).toBe('HTTP/1.1');
     expect(res.statusCode).toBe(400);
     done();
@@ -176,7 +226,12 @@ describe("GET", () => {
       "host: rawtester" + "\r\n" +
       authHeader +
       "\r\n";
-    const res = parseResponse(await rawtest(host, port, request));
+    let res;
+    try {
+      res = parseResponse(await rawtest(host, port, request));
+    } catch (err) {
+      res = {};
+    }
     expect(res.protocolVersion).toBe('HTTP/1.1');
     expect(res.statusCode).toBe(400);
     done();
@@ -190,7 +245,12 @@ describe("GET", () => {
       "Accept-Language: ko" + "\r\n" +
       authHeader +
       "\r\n";
-    const res = parseResponse(await rawtest(host, port, request));
+    let res;
+    try {
+      res = parseResponse(await rawtest(host, port, request));
+    } catch (err) {
+      res = {};
+    }
     writeLog("Accept_Language_ko.html", res.body);
     expect(res.protocolVersion).toBe('HTTP/1.1');
     expect(res.statusCode).toBe(200);
@@ -206,7 +266,12 @@ describe("GET", () => {
       "Accept-Language: en" + "\r\n" +
       authHeader +
       "\r\n";
-    const res = parseResponse(await rawtest(host, port, request));
+    let res;
+    try {
+      res = parseResponse(await rawtest(host, port, request));
+    } catch (err) {
+      res = {};
+    }
     writeLog("Accept_Language_en.html", res.body);
     expect(res.protocolVersion).toBe('HTTP/1.1');
     expect(res.statusCode).toBe(200);
@@ -222,7 +287,12 @@ describe("GET", () => {
         "Host: " + host + ":" + port + "\r\n" +
         authHeader +
         "\r\n";
-      const res = parseResponse(await rawtest(host, port, request));
+      let res;
+      try {
+        res = parseResponse(await rawtest(host, port, request));
+      } catch (err) {
+        res = {};
+      }
       expect(res.protocolVersion).toBe('HTTP/1.1');
       expect(res.statusCode).toBe(200);
       done();
@@ -234,7 +304,12 @@ describe("GET", () => {
         "User-Agent: rawtester\r\n" +
         "Host: " + host + ":" + port + "\r\n" +
         "\r\n";
-      const res = parseResponse(await rawtest(host, port, request));
+      let res;
+      try {
+        res = parseResponse(await rawtest(host, port, request));
+      } catch (err) {
+        res = {};
+      }
       expect(res.protocolVersion).toBe('HTTP/1.1');
       expect(res.statusCode).toBe(401);
       done();
@@ -247,7 +322,12 @@ describe("GET", () => {
         "Host: " + host + ":" + port + "\r\n" +
         "Authorization: " + root_auth_type + ' fail' + "\r\n" +
         "\r\n";
-      const res = parseResponse(await rawtest(host, port, request));
+      let res;
+      try {
+        res = parseResponse(await rawtest(host, port, request));
+      } catch (err) {
+        res = {};
+      }
       expect(res.protocolVersion).toBe('HTTP/1.1');
       expect(res.statusCode).toBe(403);
       done();
@@ -265,7 +345,12 @@ describe("POST", () => {
       "Content-Length: 7\r\n" +
       "\r\n" + 
       "abcdefg";
-    const res = parseResponse(await rawtest(host, port, request));
+    let res;
+    try {
+      res = parseResponse(await rawtest(host, port, request));
+    } catch (err) {
+      res = {};
+    }
     expect(res.protocolVersion).toBe('HTTP/1.1');
     expect(res.statusCode).toBe(200);
     if (res.headers['transfer-encoding'] != 'chunked') 
@@ -281,7 +366,12 @@ describe("POST", () => {
       "Content-Length: 10\r\n" +
       "\r\n" + 
       "0123456789";
-    const res = parseResponse(await rawtest(host, port, request));
+    let res;
+    try {
+      res = parseResponse(await rawtest(host, port, request));
+    } catch (err) {
+      res = {};
+    }
     expect(res.protocolVersion).toBe('HTTP/1.1');
     expect(res.statusCode).toBe(200);
     if (res.headers['transfer-encoding'] != 'chunked')
@@ -297,7 +387,12 @@ describe("POST", () => {
       "Content-Length: 100\r\n" +
       "\r\n" + 
       "0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789";
-    const res = parseResponse(await rawtest(host, port, request));
+    let res;
+    try {
+      res = parseResponse(await rawtest(host, port, request));
+    } catch (err) {
+      res = {};
+    }
     expect(res.protocolVersion).toBe('HTTP/1.1');
     expect(res.statusCode).toBe(200);
     if (res.headers['transfer-encoding'] != 'chunked')
@@ -313,7 +408,12 @@ describe("POST", () => {
       "Content-Length: 200\r\n" +
       "\r\n" + 
       "01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789";
-    const res = parseResponse(await rawtest(host, port, request));
+    let res;
+    try {
+      res = parseResponse(await rawtest(host, port, request));
+    } catch (err) {
+      res = {};
+    }
     expect(res.protocolVersion).toBe('HTTP/1.1');
     expect(res.statusCode).toBe(405);
     done();
@@ -327,7 +427,12 @@ describe("POST", () => {
       "Content-Length: 101\r\n" +
       "\r\n" + 
       "01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890";
-    const res = parseResponse(await rawtest(host, port, request));
+    let res;
+    try {
+      res = parseResponse(await rawtest(host, port, request));
+    } catch (err) {
+      res = {};
+    }
     expect(res.protocolVersion).toBe('HTTP/1.1');
     expect(res.statusCode).toBe(405);
     done();
@@ -342,7 +447,12 @@ describe("TRACE", () => {
       "User-Agent: rawtester\r\n" +
       "Host: " + host + ":" + port + "\r\n" +
       "\r\n";
-    const res = parseResponse(await rawtest(host, port, request));
+    let res;
+    try {
+      res = parseResponse(await rawtest(host, port, request));
+    } catch (err) {
+      res = {};
+    }
     expect(res.protocolVersion).toBe('HTTP/1.1');
     expect(res.statusCode).toBe(200);
     expect(res.headers['content-type']).toBe('message/http');
@@ -359,7 +469,12 @@ describe("OPTIONS", () => {
       "User-Agent: rawtester\r\n" +
       "Host: " + host + ":" + port + "\r\n" +
       "\r\n";
-    const res = parseResponse(await rawtest(host, port, request));
+    let res;
+    try {
+      res = parseResponse(await rawtest(host, port, request));
+    } catch (err) {
+      res = {};
+    }
     expect(res.protocolVersion).toBe('HTTP/1.1');
     expect(res.statusCode).toBe(200);
     expect(res.headers['allow']).not.toBeUndefined();
@@ -422,7 +537,12 @@ describe("MULTIPLE PORT", () => {
       "User-Agent: rawtester\r\n" +
       "Host: " + host + ":" + multiple_port + "\r\n" +
       "\r\n";
-    const res = parseResponse(await rawtest(host, multiple_port, request));
+    let res;
+    try {
+      res = parseResponse(await rawtest(host, port, request));
+    } catch (err) {
+      res = {};
+    }
     writeLog("response_message_multiple_port.json", JSON.stringify(res));
     expect(res.protocolVersion).toBe('HTTP/1.1');
     expect(res.statusCode).toBe(200);
@@ -435,7 +555,12 @@ describe("MULTIPLE PORT", () => {
       "User-Agent: rawtester\r\n" +
       "Host: " + host + ":" + multiple_port + "\r\n" +
       "\r\n";
-    const res = parseResponse(await rawtest(host, multiple_port, request));
+    let res;
+    try {
+      res = parseResponse(await rawtest(host, port, request));
+    } catch (err) {
+      res = {};
+    }
     expect(res.protocolVersion).toBe('HTTP/1.1');
     expect(res.statusCode).toBe(200);
     expect(res.headers['allow']).not.toBeUndefined();
