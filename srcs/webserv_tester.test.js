@@ -1,6 +1,7 @@
 const { rawtest, writeLog, parseResponse } = require("./rawtester.js");
 
 const port = 8080;
+const multiple_port = 8081;
 const host = "localhost";
 const root_auth_type = "Basic";
 const root_auth_scheme = "";
@@ -359,6 +360,37 @@ describe("OPTIONS", () => {
       "Host: " + host + ":" + port + "\r\n" +
       "\r\n";
     const res = parseResponse(await rawtest(host, port, request));
+    expect(res.protocolVersion).toBe('HTTP/1.1');
+    expect(res.statusCode).toBe(200);
+    expect(res.headers['allow']).not.toBeUndefined();
+    if (!res.headers['transfer-encoding'])
+      expect(res.headers['content-length']).not.toBeUndefined();
+    done();
+  }); 
+});
+
+describe("MULTIPLE PORT", () => {
+  test("GET /", async (done) => {
+    const request =
+      "GET / HTTP/1.1\r\n" +
+      "Accept: */*\r\n" +
+      "User-Agent: rawtester\r\n" +
+      "Host: " + host + ":" + port + "\r\n" +
+      "\r\n";
+    const res = parseResponse(await rawtest(host, multiple_port, request));
+    writeLog("response_message_multiple_port.json", JSON.stringify(res));
+    expect(res.protocolVersion).toBe('HTTP/1.1');
+    expect(res.statusCode).toBe(200);
+    done();
+  });
+  test("options", async (done) => {
+    const request =
+      "OPTIONS / HTTP/1.1\r\n" +
+      "Accept: */*\r\n" +
+      "User-Agent: rawtester\r\n" +
+      "Host: " + host + ":" + port + "\r\n" +
+      "\r\n";
+    const res = parseResponse(await rawtest(host, multiple_port, request));
     expect(res.protocolVersion).toBe('HTTP/1.1');
     expect(res.statusCode).toBe(200);
     expect(res.headers['allow']).not.toBeUndefined();
