@@ -265,15 +265,72 @@ describe("POST", () => {
     const res = parseResponse(await rawtest(host, port, request));
     expect(res.protocolVersion).toBe('HTTP/1.1');
     expect(res.statusCode).toBe(200);
-    if (res.headers['transfer-encoding'] == 'chunked')
-    {
-      expect(res.body).toBe('7\r\nABCDEFG\r\n0\r\n\r\n');
-    }
-    else 
-    {
+    if (res.headers['transfer-encoding'] != 'chunked') 
       expect(res.headers['content-length']).toBe('7');
-      expect(res.body).toBe('ABCDEFG');
-    }
     done();
   });
+  test("post_body 10", async (done) => {
+    const request =
+      "POST /directory/YoupiBanane/aa.bla HTTP/1.1\r\n" +
+      "Accept: */*\r\n" +
+      "User-Agent: rawtester\r\n" +
+      "Host: " + host + ":" + port + "\r\n" +
+      "Content-Length: 10\r\n" +
+      "\r\n" + 
+      "0123456789";
+    const res = parseResponse(await rawtest(host, port, request));
+    expect(res.protocolVersion).toBe('HTTP/1.1');
+    expect(res.statusCode).toBe(200);
+    if (res.headers['transfer-encoding'] != 'chunked')
+      expect(res.headers['content-length']).toBe('10');
+    done();
+  });
+  test("post_body 100", async (done) => {
+    const request =
+      "POST /directory/YoupiBanane/aa.bla HTTP/1.1\r\n" +
+      "Accept: */*\r\n" +
+      "User-Agent: rawtester\r\n" +
+      "Host: " + host + ":" + port + "\r\n" +
+      "Content-Length: 100\r\n" +
+      "\r\n" + 
+      "0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789";
+    const res = parseResponse(await rawtest(host, port, request));
+    expect(res.protocolVersion).toBe('HTTP/1.1');
+    expect(res.statusCode).toBe(200);
+    if (res.headers['transfer-encoding'] != 'chunked')
+      expect(res.headers['content-length']).toBe('100');
+    done();
+  });
+  test("post_body 200", async (done) => {
+    const request =
+      "POST /directory/YoupiBanane/aa.bla HTTP/1.1\r\n" +
+      "Accept: */*\r\n" +
+      "User-Agent: rawtester\r\n" +
+      "Host: " + host + ":" + port + "\r\n" +
+      "Content-Length: 200\r\n" +
+      "\r\n" + 
+      "01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789";
+    const res = parseResponse(await rawtest(host, port, request));
+    expect(res.protocolVersion).toBe('HTTP/1.1');
+    expect(res.statusCode).toBe(405);
+    done();
+  });
+  test("post_body 101", async (done) => {
+    const request =
+      "POST /directory/YoupiBanane/aa.bla HTTP/1.1\r\n" +
+      "Accept: */*\r\n" +
+      "User-Agent: rawtester\r\n" +
+      "Host: " + host + ":" + port + "\r\n" +
+      "Content-Length: 101\r\n" +
+      "\r\n" + 
+      "01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890";
+    const res = parseResponse(await rawtest(host, port, request));
+    expect(res.protocolVersion).toBe('HTTP/1.1');
+    expect(res.statusCode).toBe(405);
+    done();
+  });
+});
+
+describe("TRACE", () => {
+  
 });
