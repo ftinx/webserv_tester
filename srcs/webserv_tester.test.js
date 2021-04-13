@@ -380,9 +380,35 @@ describe("PUT", () => {
       "Content-type: text/html\r\n" +
       "\r\n" +
       "<p>New File</p>";
-    const res = parseResponse(await rawtest(host, port, request));
+    let res;
+    try {
+      res = parseResponse(await rawtest(host, port, request));
+    } catch (err) {
+      res = {};
+    }
     expect(res.protocolVersion).toBe('HTTP/1.1');
-    expect(res.statusCode).toBe(201);
+    expect(res.statusCode === 201 || res.statusCode === 204).toBe(true);
+    expect(res.headers['Content-Location']).tobe("/new.html");
+    done();
+  }); 
+  test("/put_test", async (done) => {
+    const request =
+      "PUT /new.html HTTP/1.1\r\n" +
+      "Accept: */*\r\n" +
+      "User-Agent: rawtester\r\n" +
+      "Host: " + host + ":" + port + "\r\n" +
+      "Content-Length: 16\r\n" +
+      "Content-type: text/html\r\n" +
+      "\r\n" +
+      "<p>hi</p>";
+    let res;
+    try {
+      res = parseResponse(await rawtest(host, port, request));
+    } catch (err) {
+      res = {};
+    }
+    expect(res.protocolVersion).toBe('HTTP/1.1');
+    expect(res.statusCode === 201 || res.statusCode === 204).toBe(true);
     expect(res.headers['Content-Location']).tobe("/new.html");
     done();
   }); 

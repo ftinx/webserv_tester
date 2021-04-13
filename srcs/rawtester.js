@@ -51,11 +51,12 @@ async function rawtest(host, port, request) {
   const client = new Socket();
   const promiseSocket = new PromiseSocket(client)
 
+  messageLog('\n---------------------------------------------------------------------------\n' + request);
   await promiseSocket.connect(port, host);
   await promiseSocket.write(request);
   promiseSocket.end();
   const response = await promiseSocket.readAll();
-  messageLog(response);
+  messageLog('\n###########################################################################\n' + response);
   promiseSocket.destroy()
   return (response.toString());
 }
