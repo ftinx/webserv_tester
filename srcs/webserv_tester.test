@@ -113,28 +113,6 @@ describe("POST", () => {
   });
 });
 
-describe("TRACE", () => {
-  test("trace loop-back", async (done) => {
-    const request =
-      "TRACE " + trace_path + " HTTP/1.1\r\n" +
-      "Accept: */*\r\n" +
-      "User-Agent: rawtester\r\n" +
-      "Host: " + host + ":" + port + "\r\n" +
-      "\r\n";
-    let res;
-    try {
-      res = parseResponse(await rawtest(host, port, request));
-    } catch (err) {
-      res = {};
-    }
-    expect(res.protocolVersion).toBe('HTTP/1.1');
-    expect(res.statusCode).toBe(200);
-    expect(res.headers['content-type']).toBe('message/http');
-    expect(res.body).toBe(request);
-    done();
-  });
-});
-
 describe("OPTIONS", () => {
   test("options", async (done) => {
     const request =

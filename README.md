@@ -7,43 +7,7 @@ npm test
 
 ## Test Cases
 
-### GET
-
-- GET valid path
-  - GET /
-    - Expect response: 200
-- GET invalid path
-  - GET /put_test
-    - Expect response: 405
-  - GET /post_body
-    - Expect response: 405
-  - GET /rawtester
-    - Expect response: 404
-  - GET /rawtester/sad/sadas/dasdasdas/das/dasd/asd/asdasd/asd/sad/sa/das/das/ddsa
-    - Expect response: 404
-  - GET /rawtester/rawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtester
-    - Expect response: 404
-- GET invalid Http Request Header
-  - GET no Host
-    - Expect response: 400
-  - GET Host duplicate (1)
-    - Expect response: 400
-  - GET Host duplicate (2)
-    - Expect response: 400
-  - GET Host duplicate (3)
-    - Expect response: 400
-  - GET Host duplicate (4)
-    - Expect response: 400
-  - GET Accept-Language: ko
-    - Expect response: Accept_Language_ko.html
-  - GET Accept-Language: en
-    - Expect response: Accept_Language_en.html
-  - GET Authorization
-    - Expect response: 200
-  - GET Authorization (1)
-    - Expect response: 401
-  - GET Authorization (2)
-    - Expect response: 403
+[Test Case 확인하기](./testcase.md)
 
 ## Files
 

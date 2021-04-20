@@ -140,6 +140,75 @@ describe("GET invalid Http Request Header", () => {
     if (root_auth_scheme) {
       authHeader = "Authorization: " + root_auth_type + ' ' + root_auth_scheme + "\r\n";
     }
+        test("GET Accept-Language: ko", async (done) => {
+      const request =
+        "GET / HTTP/1.1\r\n" +
+        "Accept: */*\r\n" +
+        "User-Agent: rawtester\r\n" +
+        "Host: " + host + ":" + port + "\r\n" +
+        "Accept-Language: ko" + "\r\n" +
+        authHeader +
+        "\r\n";
+      let res;
+      try {
+        res = parseResponse(await rawtest(host, port, request));
+      } catch (err) {
+        res = {};
+      }
+      writeLog("Accept_Language_ko.html", res.body);
+      expect(res.protocolVersion).toBe('HTTP/1.1');
+      expect(res.statusCode).toBe(200);
+      expect(res.headers['content-language']).toBe("ko");
+      done();
+    });
+    test("GET Accept-Language: en", async (done) => {
+      const request =
+        "GET / HTTP/1.1\r\n" +
+        "Accept: */*\r\n" +
+        "User-Agent: rawtester\r\n" +
+        "Host: " + host + ":" + port + "\r\n" +
+        "Accept-Language: en" + "\r\n" +
+        authHeader +
+        "\r\n";
+      let res;
+      try {
+        res = parseResponse(await rawtest(host, port, request));
+      } catch (err) {
+        res = {};
+      }
+      writeLog("Accept_Language_en.html", res.body);
+      expect(res.protocolVersion).toBe('HTTP/1.1');
+      expect(res.statusCode).toBe(200);
+      expect(res.headers['content-language']).toBe("en");
+      done();
+    });
+    if (root_auth_scheme) {
+      test("GET Authorization", async (done) => {
+        const request =
+          "GET / HTTP/1.1\r\n" +
+          "Accept: */*\r\n" +
+          "User-Agent: rawtester\r\n" +
+          "Host: " + host + ":" + port + "\r\n" +
+          authHeader +
+          "\r\n";
+        let res;
+        try {
+          res = parseResponse(await rawtest(host, port, request));
+        } catch (err) {
+          res = {};
+        }
+        expect(res.protocolVersion).toBe('HTTP/1.1');
+        expect(res.statusCode).toBe(200);
+        done();
+      });
+    }
+})
+
+describe("GET invalid Http Request Header", () => {
+    let authHeader = ''
+    if (root_auth_scheme) {
+      authHeader = "Authorization: " + root_auth_type + ' ' + root_auth_scheme + "\r\n";
+    }
     test("GET no Host", async (done) => {
       const request =
         "GET / HTTP/1.1\r\n" +
@@ -233,67 +302,7 @@ describe("GET invalid Http Request Header", () => {
       expect(res.statusCode).toBe(400);
       done();
     });
-    test("GET Accept-Language: ko", async (done) => {
-      const request =
-        "GET / HTTP/1.1\r\n" +
-        "Accept: */*\r\n" +
-        "User-Agent: rawtester\r\n" +
-        "Host: " + host + ":" + port + "\r\n" +
-        "Accept-Language: ko" + "\r\n" +
-        authHeader +
-        "\r\n";
-      let res;
-      try {
-        res = parseResponse(await rawtest(host, port, request));
-      } catch (err) {
-        res = {};
-      }
-      writeLog("Accept_Language_ko.html", res.body);
-      expect(res.protocolVersion).toBe('HTTP/1.1');
-      expect(res.statusCode).toBe(200);
-      expect(res.headers['content-language']).toBe("ko");
-      done();
-    });
-    test("GET Accept-Language: en", async (done) => {
-      const request =
-        "GET / HTTP/1.1\r\n" +
-        "Accept: */*\r\n" +
-        "User-Agent: rawtester\r\n" +
-        "Host: " + host + ":" + port + "\r\n" +
-        "Accept-Language: en" + "\r\n" +
-        authHeader +
-        "\r\n";
-      let res;
-      try {
-        res = parseResponse(await rawtest(host, port, request));
-      } catch (err) {
-        res = {};
-      }
-      writeLog("Accept_Language_en.html", res.body);
-      expect(res.protocolVersion).toBe('HTTP/1.1');
-      expect(res.statusCode).toBe(200);
-      expect(res.headers['content-language']).toBe("en");
-      done();
-    });
     if (root_auth_scheme) {
-      test("GET Authorization", async (done) => {
-        const request =
-          "GET / HTTP/1.1\r\n" +
-          "Accept: */*\r\n" +
-          "User-Agent: rawtester\r\n" +
-          "Host: " + host + ":" + port + "\r\n" +
-          authHeader +
-          "\r\n";
-        let res;
-        try {
-          res = parseResponse(await rawtest(host, port, request));
-        } catch (err) {
-          res = {};
-        }
-        expect(res.protocolVersion).toBe('HTTP/1.1');
-        expect(res.statusCode).toBe(200);
-        done();
-      });
       test("GET Authorization (1)", async (done) => {
         const request =
           "GET / HTTP/1.1\r\n" +
