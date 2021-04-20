@@ -4,14 +4,14 @@ const port = 8080;
 const multiple_port = 8081;
 const host = "localhost";
 const root_auth_type = "Basic";
-const root_auth_scheme = "aG9sZWU6MDIyMg==";
+const root_auth_scheme = "dG9ueWJ5ZW9uOjAyMjI=";
+
+let authHeader = ''
+if (root_auth_scheme) {
+  authHeader = "Authorization: " + root_auth_type + ' ' + root_auth_scheme + "\r\n";
+}
 
 describe("GET valid path", () => {
-    let authHeader = ''
-    if (root_auth_scheme) {
-      authHeader = "Authorization: " + root_auth_type + ' ' + root_auth_scheme + "\r\n";
-    }
-
     test("GET /", async (done) => {
       const request =
         "GET / HTTP/1.1\r\n" +
@@ -34,10 +34,6 @@ describe("GET valid path", () => {
   });
 
 describe("GET invalid path", () => {
-    let authHeader = ''
-    if (root_auth_scheme) {
-      authHeader = "Authorization: " + root_auth_type + ' ' + root_auth_scheme + "\r\n";
-    }
     test("GET /put_test", async (done) => {
         const request =
           "GET /put_test HTTP/1.1\r\n" +
@@ -136,11 +132,7 @@ describe("GET invalid path", () => {
 })
 
 describe("GET invalid Http Request Header", () => {
-    let authHeader = ''
-    if (root_auth_scheme) {
-      authHeader = "Authorization: " + root_auth_type + ' ' + root_auth_scheme + "\r\n";
-    }
-        test("GET Accept-Language: ko", async (done) => {
+    test("GET Accept-Language: ko", async (done) => {
       const request =
         "GET / HTTP/1.1\r\n" +
         "Accept: */*\r\n" +
@@ -205,10 +197,6 @@ describe("GET invalid Http Request Header", () => {
 })
 
 describe("GET invalid Http Request Header", () => {
-    let authHeader = ''
-    if (root_auth_scheme) {
-      authHeader = "Authorization: " + root_auth_type + ' ' + root_auth_scheme + "\r\n";
-    }
     test("GET no Host", async (done) => {
       const request =
         "GET / HTTP/1.1\r\n" +
@@ -340,6 +328,30 @@ describe("GET invalid Http Request Header", () => {
       });
     }
 })
+
+describe("MULTIPLE PORT", () => {
+  if (multiple_port) {
+    test("GET /", async (done) => {
+      const request =
+        "GET / HTTP/1.1\r\n" +
+        "Accept: */*\r\n" +
+        "User-Agent: rawtester\r\n" +
+        "Host: " + host + ":" + multiple_port + "\r\n" +
+        authHeader +
+        "\r\n";
+      let res;
+      try {
+        res = parseResponse(await rawtest(host, port, request));
+      } catch (err) {
+        res = {};
+      }
+      writeLog("response_message_multiple_port.json", JSON.stringify(res));
+      expect(res.protocolVersion).toBe('HTTP/1.1');
+      expect(res.statusCode).toBe(200);
+      done();
+    });
+  }
+});
 
 // test("GET /rawtester/rawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtester", async (done) => {
 //   const request =

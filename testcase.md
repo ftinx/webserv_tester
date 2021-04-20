@@ -46,6 +46,12 @@
      | GET     | /       | 401              | Authorization  (1)|
      | GET     | /       | 403              | Authorization  (2)|
 
+   - MULTIPLE PORT
+
+     | Method  | Path    | Expect Response  | Else          |
+     | ------- | ------- | ---------------- | ------------- | 
+     | GET     | /       | 200              | multiple_port |
+
 3. **POST**
 
 4. **PUT/DELETE**

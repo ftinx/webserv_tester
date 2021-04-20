@@ -40,7 +40,7 @@ npm run --silent fclean
 
 #### Object parseResponse(String)
 - parse response
-- return value example (GET /)
+- return value example (GET / )
 
 ```
     {
