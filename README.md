@@ -11,6 +11,7 @@ npm test
 
 - GET valid path
   - GET /
+    - Expect response: 200
 - GET invalid path
   - GET /put_test
     - Expect response: 405
@@ -25,6 +26,24 @@ npm test
 - GET invalid Http Request Header
   - GET no Host
     - Expect response: 400
+  - GET Host duplicate (1)
+    - Expect response: 400
+  - GET Host duplicate (2)
+    - Expect response: 400
+  - GET Host duplicate (3)
+    - Expect response: 400
+  - GET Host duplicate (4)
+    - Expect response: 400
+  - GET Accept-Language: ko
+    - Expect response: Accept_Language_ko.html
+  - GET Accept-Language: en
+    - Expect response: Accept_Language_en.html
+  - GET Authorization
+    - Expect response: 200
+  - GET Authorization (1)
+    - Expect response: 401
+  - GET Authorization (2)
+    - Expect response: 403
 
 ## Files
 
