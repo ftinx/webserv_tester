@@ -38,7 +38,7 @@ function parseResponse(res) {
       'statusMessage': parseLine[3]
     })
   }
-  
+
   function parseHeaders(headerLines) {
     let headers = {};
     for (line of headerLines) {
@@ -57,29 +57,31 @@ async function rawtest(host, port, request) {
   await promiseSocket.connect(port, host);
   await promiseSocket.write(request);
   promiseSocket.end();
+
   const response = await promiseSocket.readAll();
+  console.log('hi', response, 'sad')
   messageLog('\n###########################################################################\n' + response);
   promiseSocket.destroy()
   return (response.toString());
 }
- 
+
 function writeLog(filename, log) {
-  fs.writeFile(filename, log, 'utf8', function (err, fd) { 
-    if (err) 
+  fs.writeFile(filename, log, 'utf8', function (err, fd) {
+    if (err)
       throw '[ERR] FILE WRITE: ' + fd + ' ' + err;
   });
 }
 
 function messageLog(log) {
   if (MESSAGE_LOG_STATUS) {
-    fs.writeFile("http_response.log", log, 'utf8', function (err, fd) { 
-      if (err) 
+    fs.writeFile("http_response.log", log, 'utf8', function (err, fd) {
+      if (err)
         throw '[ERR] FILE WRITE: ' + fd + ' ' + err;
-    });   
+    });
     MESSAGE_LOG_STATUS -= 1;
   } else {
     fs.appendFile("http_response.log", log, (err) => {
-      if (err) 
+      if (err)
         throw '[ERR] FILE WRITE: response message ' + err;
     });
   }
