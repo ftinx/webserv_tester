@@ -15,8 +15,8 @@
      | GET     | /put_test  | 405              |      |
      | GET     | /post_body | 405              |      |
      | GET     | /rawtester | 404              |      |
-     | GET     | /rawtester/sad/sadas/dasdasdas/das/dasd/asd/asdasd/asd/sad/sa/das/das/ddsa  | 404              |      |
-     | GET     | /rawtester/rawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtester  | 404              |      |
+     | GET     | /rawtester/sad/sadas/dasdasdas/das/das...(x74)  | 404              |      |
+     | GET     | /rawtester/rawtesterrawtesterrawtester...(x650)  | 404              |      |
 
    - valid Http Request Header
 
