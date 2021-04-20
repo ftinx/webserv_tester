@@ -36,5 +36,48 @@ npm run --silent clean
 npm run --silent fclean
 ```
 
+## Functions
+
+#### Object parseResponse(String)
+- parse response
+- return value example (GET /)
+
+```
+    {
+      protocolVersion: 'HTTP/1.1',
+      statusCode: 200,
+      statusMessage: 'OK',
+      headers: {
+        'content-language': 'ko',
+        'content-length': '251',
+        'content-type': 'text/html',
+        date: 'Wed, 21 Apr 2021 02:11:03 KST',
+        'last-modified': 'Wed, 21 Apr 2021 02:11:03 KST',
+        server: 'ftinx/0.1: second_server',
+        status: '200'
+      },
+      body: '<!DOCTYPE html>\r\n' +
+        '<html lang="en">\r\n' +
+        '<head>\r\n' +
+        '\t<meta charset="UTF-8">\r\n' +
+        '\t<meta name="viewport" content="width=device-width, initial-scale=1.0">\r\n' +
+        '\t<meta http-equiv="X-UA-Compatible" content="ie=edge">\r\n' +
+        '\t<title>Document</title>\r\n' +
+        '</head>\r\n' +
+        '<body>\r\n' +
+        '\thi\r\n' +
+        '</body>\r\n' +
+        '</html>\r\n'
+    }
+```
+
+#### String rawtest(host: String, port: Number, requestMessage: String)
+- request response message by socket
+#### writeLog(filename: String, log: String)
+- write log to filename
+#### messageLog(log: String)
+- append log to http_response.log
+
+
 ## To Do
 - Chunked 처리 (현재는 content-length만 처리됨)
