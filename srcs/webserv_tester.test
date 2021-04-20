@@ -343,7 +343,7 @@ describe("POST", () => {
       "User-Agent: rawtester\r\n" +
       "Host: " + host + ":" + port + "\r\n" +
       "Content-Length: 7\r\n" +
-      "\r\n" + 
+      "\r\n" +
       "abcdefg";
     let res;
     try {
@@ -353,7 +353,7 @@ describe("POST", () => {
     }
     expect(res.protocolVersion).toBe('HTTP/1.1');
     expect(res.statusCode).toBe(200);
-    if (res.headers['transfer-encoding'] != 'chunked') 
+    if (res.headers['transfer-encoding'] != 'chunked')
       expect(res.headers['content-length']).toBe('7');
     done();
   });
@@ -364,7 +364,7 @@ describe("POST", () => {
       "User-Agent: rawtester\r\n" +
       "Host: " + host + ":" + port + "\r\n" +
       "Content-Length: 10\r\n" +
-      "\r\n" + 
+      "\r\n" +
       "0123456789";
     let res;
     try {
@@ -385,7 +385,7 @@ describe("POST", () => {
       "User-Agent: rawtester\r\n" +
       "Host: " + host + ":" + port + "\r\n" +
       "Content-Length: 100\r\n" +
-      "\r\n" + 
+      "\r\n" +
       "0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789";
     let res;
     try {
@@ -406,7 +406,7 @@ describe("POST", () => {
       "User-Agent: rawtester\r\n" +
       "Host: " + host + ":" + port + "\r\n" +
       "Content-Length: 200\r\n" +
-      "\r\n" + 
+      "\r\n" +
       "01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789";
     let res;
     try {
@@ -425,7 +425,7 @@ describe("POST", () => {
       "User-Agent: rawtester\r\n" +
       "Host: " + host + ":" + port + "\r\n" +
       "Content-Length: 101\r\n" +
-      "\r\n" + 
+      "\r\n" +
       "01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890";
     let res;
     try {
@@ -458,7 +458,7 @@ describe("TRACE", () => {
     expect(res.headers['content-type']).toBe('message/http');
     expect(res.body).toBe(request);
     done();
-  }); 
+  });
 });
 
 describe("OPTIONS", () => {
@@ -481,7 +481,7 @@ describe("OPTIONS", () => {
     if (!res.headers['transfer-encoding'])
       expect(res.headers['content-length']).not.toBeUndefined();
     done();
-  }); 
+  });
 });
 
 describe("PUT", () => {
@@ -505,7 +505,7 @@ describe("PUT", () => {
     expect(res.statusCode === 201 || res.statusCode === 204).toBe(true);
     expect(res.headers['Content-Location']).tobe("/new.html");
     done();
-  }); 
+  });
   test("/put_test", async (done) => {
     const request =
       "PUT /new.html HTTP/1.1\r\n" +
@@ -526,7 +526,7 @@ describe("PUT", () => {
     expect(res.statusCode === 201 || res.statusCode === 204).toBe(true);
     expect(res.headers['Content-Location']).tobe("/new.html");
     done();
-  }); 
+  });
 });
 
 describe("MULTIPLE PORT", () => {
@@ -567,5 +567,5 @@ describe("MULTIPLE PORT", () => {
     if (!res.headers['transfer-encoding'])
       expect(res.headers['content-length']).not.toBeUndefined();
     done();
-  }); 
+  });
 });

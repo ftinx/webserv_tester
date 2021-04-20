@@ -1,9 +1,30 @@
-### 사용법
+## 사용법
 
 ```sh
 npm i
 npm test
 ```
+
+## Test Cases
+
+### GET
+
+- GET valid path
+  - GET /
+- GET invalid path
+  - GET /put_test
+    - Expect response: 405
+  - GET /post_body
+    - Expect response: 405
+  - GET /rawtester
+    - Expect response: 404
+  - GET /rawtester/sad/sadas/dasdasdas/das/dasd/asd/asdasd/asd/sad/sa/das/das/ddsa
+    - Expect response: 404
+  - GET /rawtester/rawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtester
+    - Expect response: 404
+- GET invalid Http Request Header
+  - GET no Host
+    - Expect response: 400
 
 ## Files
 
