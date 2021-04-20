@@ -76,3 +76,26 @@ describe("PUT", () => {
     done();
   });
 });
+
+
+// describe("DELETE", () => {
+//     test("delete hi", async (done) => {
+//         const request =
+//           "DELETE /hi HTTP/1.1\r\n" +
+//           "Accept: */*\r\n" +
+//           "User-Agent: rawtester\r\n" +
+//           "Host: " + host + ":" + port + "\r\n" +
+//           authHeader +
+//           "\r\n";
+//         let res;
+//         try {
+//           res = parseResponse(await rawtest(host, port, request));
+//         } catch (err) {
+//           res = {};
+//         }
+//         writeLog("response_message.json", JSON.stringify(res));
+//         expect(res.protocolVersion).toBe('HTTP/1.1');
+//         expect(res.statusCode).toBe(405);
+//         done();
+//     });
+// })
