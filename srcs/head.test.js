@@ -31,7 +31,7 @@ describe("Head", () => {
         done();
     });
 
-    test("GET /", async (done) => {
+    test("HEAD /", async (done) => {
       const request =
         "HEAD / HTTP/1.1\r\n" +
         "Accept: */*\r\n" +
@@ -48,6 +48,7 @@ describe("Head", () => {
       writeLog("response_message.json", JSON.stringify(headRes));
       expect(headRes.protocolVersion).toBe('HTTP/1.1');
       expect(headRes.statusCode).toBe(200);
+      expect({...headRes.headers, "date": "", "last-modified": ""}).toStrictEqual({...res.headers, "date": "", "last-modified": ""});
       done();
     });
 });

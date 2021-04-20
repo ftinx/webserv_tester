@@ -1,5 +1,13 @@
 ### webserv testcase
 
+0. **HEAD**
+
+   - valid path
+
+     | Method  | Path    | Expect Response             | 
+     | ------- | ------- | --------------------------- | 
+     | HEAD    | /       | Equivalence with get header | 
+
 1. **GET**
 
    - valid path
@@ -38,7 +46,11 @@
      | GET     | /       | 401              | Authorization  (1)|
      | GET     | /       | 403              | Authorization  (2)|
 
-3. **TRACE**
+3. **POST**
+
+4. **PUT/DELETE**
+
+5. **TRACE**
 
    - trace loop-back (default path: /trace)
 
@@ -52,7 +64,7 @@
      | TRACE   | /rawtest   | 404              |                  |
      | TRACE   | /rawtest2  | 404              |                  |
 
-3. **OPTIONS**
+6. **OPTIONS**
 
    - options (63 ms (Google), default path: /options)
 
