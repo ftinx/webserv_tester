@@ -60,6 +60,13 @@
      | ------- | ------- | ---------------- | ------------- |
      | GET     | /       | 200              | multiple_port |
 
+   - Redirect
+
+     | Method  | Path      | Expect Response  | Else               |
+     | ------- | --------- | ---------------- | ------------------ |
+     | GET     | /redirect | 302              | location: not NULL |
+     | GET     | /         | 301              | location           |
+
 3. **POST**
 
 4. **PUT/DELETE**
