@@ -28,11 +28,19 @@
 
    - valid Http Request Header
 
-     | Method  | Path    | Expect Response  | Else                | Output                  |
-     | ------- | ------- | ---------------- | ------------------- | ----------------------- |
-     | GET     | /       | 200              | Accept-Language: ko | Accept_Language_ko.html |
-     | GET     | /       | 200              | Accept-Language: en | Accept_Language_en.html |
-     | GET     | /       | 200              | Authorization       |                         |
+     | Method  | Path       | Expect Response  | Else                | Output                  |
+     | ------- | ---------- | ---------------- | ------------------- | ----------------------- |
+     | GET     | /          | 200              | Accept-Language: ko | Accept_Language_ko.html |
+     | GET     | /          | 200              | Allow: not NULL     |                         |
+     | GET     | /post_body | 200              | Accept-Language: en | Accept_Language_en.html |
+     | GET     | /          | 200              | Authorization       |                         |
+     | GET     | /          | 200              | Content-Language    |                         |
+     | GET     | /          | 200              | Content-Length      |                         |
+     | GET     | /          | 200              | Content-Type        |                         |
+     | GET     | /          | 200              | Date                |                         |
+     | GET     | /          | 200              | Host                |                         |
+     | GET     | /          | 200              | Last-Modified       |                         |
+     | GET     | /          | 200              | Server              |                         |
 
    - invalid Http Request Header
 
