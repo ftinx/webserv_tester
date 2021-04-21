@@ -4,22 +4,22 @@
 
    - valid path
 
-     | Method  | Path    | Expect Response             | 
-     | ------- | ------- | --------------------------- | 
-     | HEAD    | /       | Equivalence with get header | 
+     | Method  | Path    | Expect Response             |
+     | ------- | ------- | --------------------------- |
+     | HEAD    | /       | Equivalence with get header |
 
 1. **GET**
 
    - valid path
 
      | Method  | Path    | Expect Response  | Else |
-     | ------- | ------- | ---------------- | ---- | 
+     | ------- | ------- | ---------------- | ---- |
      | GET     | /       | 200              |      |
 
    - invalid path
 
      | Method  | Path       | Expect Response  | Else |
-     | ------- | ---------- | ---------------- | ---- | 
+     | ------- | ---------- | ---------------- | ---- |
      | GET     | /put_test  | 405              |      |
      | GET     | /post_body | 405              |      |
      | GET     | /rawtester | 404              |      |
@@ -37,7 +37,7 @@
    - invalid Http Request Header
 
      | Method  | Path    | Expect Response  | Else     |
-     | ------- | ------- | ---------------- | -------- | 
+     | ------- | ------- | ---------------- | -------- |
      | GET     | /       | 400              | no Host  |
      | GET     | /       | 400              | Host duplicate (1)|
      | GET     | /       | 400              | Host duplicate (2)|
@@ -49,19 +49,46 @@
    - MULTIPLE PORT
 
      | Method  | Path    | Expect Response  | Else          |
-     | ------- | ------- | ---------------- | ------------- | 
+     | ------- | ------- | ---------------- | ------------- |
      | GET     | /       | 200              | multiple_port |
 
 3. **POST**
 
 4. **PUT/DELETE**
 
+   - PUT (Specific header)
+
+     | Method  | Path                         | Expect Response  | Else            |
+     | ------- | ---------------------------- | ---------------- | --------------- |
+     | PUT     | /put_test/rawtest.html       | 201              | Specific header      |
+     | PUT     | /put_test/rawtest.html       | 201              | Idempotency          |
+     | PUT     | /put_test/rawtest2.html      | 201              | Specific header      |
+     | PUT     | /put_test/rawtest3           | 201              | Content-Length: 0    |
+     | PUT     | /put_test/rawtest4           | 201              | Content-Length: 10   |
+     | PUT     | /put_test/rawtest5           | 201              | Content-Length: 100  |
+     | PUT     | /put_test/rawtest6           | 201              | Content-Length: 1000 |
+
+   - DELETE
+
+     | Method  | Path                         | Expect Response  | Else            |
+     | ------- | ---------------------------- | ---------------- | --------------- |
+     | PUT     | /put_test/rawtest.html       | 200              |                 |
+     | PUT     | /put_test/rawtest.html       | 200              |                 |
+     | PUT     | /put_test/rawtest2.html      | 200              |                 |
+     | PUT     | /put_test/rawtest3           | 200              |                 |
+     | PUT     | /put_test/rawtest4           | 200              |                 |
+     | PUT     | /put_test/rawtest5           | 200              |                 |
+     | PUT     | /put_test/rawtest6           | 200              |                 |
+     | PUT     | /put_test/rawtest/...        | 404              |                 |
+     | PUT     | /put_test/rawtest/...        | 404              |                 |
+     | PUT     | /put_test/rawtest/...        | 404              |                 |
+
 5. **TRACE**
 
    - trace loop-back (default path: /trace)
 
      | Method  | Path       | Expect Response  | Else             |
-     | ------- | ---------- | ---------------- | ---------------- | 
+     | ------- | ---------- | ---------------- | ---------------- |
      | TRACE   | trace_path | 200              | Specific header  |
      | TRACE   | /          | 405              | Specific header  |
      | TRACE   | /put_test  | 405              | Specific header  |

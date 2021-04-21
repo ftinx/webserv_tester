@@ -59,7 +59,6 @@ async function rawtest(host, port, request) {
   promiseSocket.end();
 
   const response = await promiseSocket.readAll();
-  console.log('hi', response, 'sad')
   messageLog('\n###########################################################################\n' + response);
   promiseSocket.destroy()
   return (response.toString());
