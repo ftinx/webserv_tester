@@ -1,5 +1,5 @@
 const { rawtest, writeLog, parseResponse } = require("./rawtester.js");
-const { port, multiple_port, host, root_auth_type, root_auth_scheme, getAuthHeader } = require("./setting.js");
+const { port, multiple_port, host, root_auth_type, root_auth_scheme, getAuthHeader, redirect_301_port, redirect_302_port, location } = require("./setting.js");
 const authHeader = getAuthHeader(root_auth_type, root_auth_scheme);
 
 describe("GET valid path", () => {
@@ -342,6 +342,47 @@ describe("MULTIPLE PORT", () => {
       done();
     });
   }
+});
+
+describe("GET Redirect", () => {
+  test("GET /redirect 302", async (done) => {
+      const request =
+          "GET /redirect HTTP/1.1\r\n" +
+          "Accept: */*\r\n" +
+          "User-Agent: rawtester\r\n" +
+          "Host: " + host + ":" + redirect_301_port + "\r\n" +
+          "\r\n";
+      let res;
+      try {
+          res = parseResponse(await rawtest(host, redirect_301_port, request));
+      } catch (err) {
+          res = {};
+      }
+      writeLog("response_message.json", JSON.stringify(res));
+      expect(res.protocolVersion).toBe('HTTP/1.1');
+      expect(res.statusCode).toBe(302);
+      expect(res.headers['location']).not.toBeUndefined();
+      done();
+  });
+  test("GET / 301", async (done) => {
+    const request =
+        "GET / HTTP/1.1\r\n" +
+        "Accept: */*\r\n" +
+        "User-Agent: rawtester\r\n" +
+        "Host: " + host + ":" + redirect_302_port + "\r\n" +
+        "\r\n";
+    let res;
+    try {
+        res = parseResponse(await rawtest(host, redirect_302_port, request));
+    } catch (err) {
+        res = {};
+    }
+    writeLog("response_message.json", JSON.stringify(res));
+    expect(res.protocolVersion).toBe('HTTP/1.1');
+    expect(res.statusCode).toBe(301);
+    expect(res.headers['location']).toBe(location);
+    done();
+});
 });
 
 // test("GET /rawtester/rawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtesterrawtester", async (done) => {
