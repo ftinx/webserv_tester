@@ -52,7 +52,7 @@
      | ------- | ------- | ---------------- | ------------- |
      | GET     | /       | 200              | multiple_port |
 
-   - MULTIPLE PORT
+   - Redirect
 
      | Method  | Path      | Expect Response  | Else               |
      | ------- | --------- | ---------------- | ------------------ |
