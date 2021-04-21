@@ -1,14 +1,6 @@
 const { rawtest, parseResponse } = require("./rawtester.js");
-
-const port = 8080;
-const host = "localhost";
-const root_auth_type = "Basic";
-const root_auth_scheme = "aG9sZWU6MDIyMg==";
-
-let authHeader = ''
-if (root_auth_scheme) {
-  authHeader = "Authorization: " + root_auth_type + ' ' + root_auth_scheme + "\r\n";
-}
+const { port, multiple_port, host, root_auth_type, root_auth_scheme, getAuthHeader } = require("./setting.js");
+const authHeader = getAuthHeader(root_auth_type, root_auth_scheme);
 
 let putIdempotency;
 

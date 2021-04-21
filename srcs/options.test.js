@@ -1,17 +1,8 @@
 const { rawtest, writeLog, parseResponse } = require("./rawtester.js");
-
-const port = 8080;
-const host = "localhost";
-const root_auth_type = "Basic";
-const root_auth_scheme = "dG9ueWJ5ZW9uOjAyMjI=";
-
-const options_path = "/options";
+const { port, multiple_port, host, root_auth_type, root_auth_scheme, getAuthHeader, options_path } = require("./setting.js");
+const authHeader = getAuthHeader(root_auth_type, root_auth_scheme);
 
 describe("OPTIONS", () => {
-    let authHeader = ''
-    if (root_auth_scheme) {
-      authHeader = "Authorization: " + root_auth_type + ' ' + root_auth_scheme + "\r\n";
-    }
     test("options options_path", async (done) => {
       const request =
         "OPTIONS " + options_path + " HTTP/1.1\r\n" +

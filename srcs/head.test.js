@@ -1,20 +1,12 @@
 const { rawtest, writeLog, parseResponse } = require("./rawtester.js");
-
-const port = 8081;
-const host = "localhost";
-const root_auth_type = "Basic";
-const root_auth_scheme = "aG9sZWU6MDIyMg==";
+const { port, multiple_port, host, root_auth_type, root_auth_scheme, getAuthHeader, head_path } = require("./setting.js");
+const authHeader = getAuthHeader(root_auth_type, root_auth_scheme);
 
 describe("Head", () => {
     let res;
-    let authHeader = ''
-    if (root_auth_scheme) {
-      authHeader = "Authorization: " + root_auth_type + ' ' + root_auth_scheme + "\r\n";
-    }
-
-    test("GET /", async (done) => {
+    test("GET head_path", async (done) => {
         const request =
-          "GET / HTTP/1.1\r\n" +
+          "GET " + head_path + " HTTP/1.1\r\n" +
           "Accept: */*\r\n" +
           "User-Agent: rawtester\r\n" +
           "Host: " + host + ":" + port + "\r\n" +
@@ -31,9 +23,9 @@ describe("Head", () => {
         done();
     });
 
-    test("HEAD /", async (done) => {
+    test("HEAD head_path", async (done) => {
       const request =
-        "HEAD / HTTP/1.1\r\n" +
+        "HEAD " + head_path + " HTTP/1.1\r\n" +
         "Accept: */*\r\n" +
         "User-Agent: rawtester\r\n" +
         "Host: " + host + ":" + port + "\r\n" +

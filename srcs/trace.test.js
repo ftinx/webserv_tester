@@ -1,17 +1,8 @@
 const { rawtest, writeLog, parseResponse } = require("./rawtester.js");
-
-const port = 8080;
-const host = "localhost";
-const root_auth_type = "Basic";
-const root_auth_scheme = "";
-
-const trace_path = "/trace";
+const { port, multiple_port, host, root_auth_type, root_auth_scheme, getAuthHeader, trace_path } = require("./setting.js");
+const authHeader = getAuthHeader(root_auth_type, root_auth_scheme);
 
 describe("TRACE loop-back", () => {
-  let authHeader = ''
-  if (root_auth_scheme) {
-    authHeader = "Authorization: " + root_auth_type + ' ' + root_auth_scheme + "\r\n";
-  }
   test("trace /trace", async (done) => {
     const request =
       "TRACE " + trace_path + " HTTP/1.1\r\n" +
