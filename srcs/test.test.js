@@ -3,13 +3,13 @@ const { port, multiple_port, host, root_auth_type, root_auth_scheme, getAuthHead
 const authHeader = getAuthHeader(root_auth_type, root_auth_scheme);
 
 describe("TEST", () => {
-  test("GET Content-Language", async (done) => {
+  test("GET Host duplicate (1)", async (done) => {
     const request =
       "GET / HTTP/1.1\r\n" +
       "Accept: */*\r\n" +
       "User-Agent: rawtester\r\n" +
       "Host: " + host + ":" + port + "\r\n" +
-      "Accept-Language: ko" + "\r\n" +
+      "Host: rawtester" + "\r\n" +
       authHeader +
       "\r\n";
     let res;
@@ -19,8 +19,7 @@ describe("TEST", () => {
       res = {};
     }
     expect(res.protocolVersion).toBe('HTTP/1.1');
-    expect(res.statusCode).toBe(200);
-    expect(["ko", "ko-kr"].includes(res.headers['content-language'])).toBe(true);
+    expect(res.statusCode).toBe(400);
     done();
   });
 });
