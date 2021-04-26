@@ -1,10 +1,6 @@
 const { rawtest, writeLog, parseResponse } = require("./rawtester.js");
-
-const port = 8080;
-const multiple_port = 8081;
-const host = "localhost";
-const root_auth_type = "Basic";
-const root_auth_scheme = "aG9sZWU6MDIyMg==";
+const { port, multiple_port, host, root_auth_type, root_auth_scheme, getAuthHeader, redirect_301_port, redirect_302_port, location } = require("./setting.js");
+const authHeader = getAuthHeader(root_auth_type, root_auth_scheme);
 
 describe("POST", () => {
   test("POST CGI", async (done) => {
