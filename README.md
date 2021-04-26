@@ -1,5 +1,7 @@
 ## 사용법
 
+- /srcs/settings.js 파일 설정
+
 ```sh
 npm i
 npm test
