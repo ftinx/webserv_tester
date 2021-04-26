@@ -81,4 +81,3 @@ npm run --silent fclean
 
 ## To Do
 - Chunked 처리 (현재는 content-length만 처리됨)
-- 파일로 나뉘어져있는 변수 하나로 합치기
